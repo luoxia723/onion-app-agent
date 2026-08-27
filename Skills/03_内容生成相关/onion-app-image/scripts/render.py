@@ -1,10 +1,8 @@
 #!/usr/bin/env python3
-"""Render one onion ad image through KIE GPT Image 2.
+"""Validate one APP image render request before unified MCP generation.
 
-The production path is asynchronous: upload local references when needed,
-create one KIE task, poll that task, and download the result as a real PNG.
-Use --validate-only to validate without requiring KIE_API_KEY or spending
-credits.
+Paid KIE execution is server-side in onion-agent. This local script keeps the
+deterministic ``--validate-only`` gate and intentionally refuses paid calls.
 """
 
 from __future__ import annotations
@@ -42,7 +40,7 @@ RESOLUTION_CHOICES = {RESOLUTION}
 LEGACY_QUALITY_CHOICES = {"low", "medium", "high"}
 ENV_FILE = Path.home() / ".onion-ad" / ".env"
 SIZE_RE = re.compile(r"^([1-9]\d*)x([1-9]\d*)$")
-MAX_REFERENCE_IMAGES = 16
+MAX_REFERENCE_IMAGES = 8
 MAX_REFERENCE_BYTES = 10 * 1024 * 1024
 DEFAULT_POLL_TIMEOUT = 900
 
@@ -627,6 +625,11 @@ def main() -> int:
         if args.validate_only:
             print(json.dumps(metadata, ensure_ascii=False, indent=2))
             return 0
+
+        raise KieError(
+            "paid KIE generation moved to onion-agent generation_kie_image; use render.py --validate-only locally",
+            2,
+        )
 
         if not args.approved_in_current_task:
             raise KieError(
