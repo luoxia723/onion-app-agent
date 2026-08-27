@@ -121,7 +121,10 @@ def autoload_dotenv() -> None:
 def find_project_root(start: Path) -> Path:
     cur = start.resolve()
     while True:
-        if (cur / "AGENTS.md").is_file() and (cur / "Skills").is_dir():
+        if (cur / "AGENTS.md").is_file() and (
+            (cur / "Skills").is_dir()
+            or (cur / ".agents" / "skills").is_dir()
+        ):
             return cur
         parent = cur.parent
         if parent == cur:
@@ -135,7 +138,9 @@ def resolve_reference_path(path: str | Path, project_root: Path, skill_dir: Path
         return p.resolve()
     candidates = [(Path.cwd() / p).resolve(), (project_root / p).resolve(), (skill_dir / p).resolve()]
     path_text = str(path)
-    if path_text.startswith("Skills/03_内容生成相关/onion-app-image/"):
+    if path_text.startswith(".agents/skills/onion-app-image/"):
+        candidates.append((project_root / p).resolve())
+    if path_text.startswith(".agents/skills/onion-app-image/"):
         candidates.append((project_root / p).resolve())
     if path_text.startswith("assets/"):
         candidates.append((skill_dir / p).resolve())

@@ -33,7 +33,10 @@ from logo_reference import validate_manifest_logo  # noqa: E402
 def repository_root(start: Path = SCRIPT_DIR) -> Path:
     current = start.resolve()
     while True:
-        if (current / "AGENTS.md").is_file() and (current / "Skills").is_dir():
+        if (current / "AGENTS.md").is_file() and (
+            (current / "Skills").is_dir()
+            or (current / ".agents" / "skills").is_dir()
+        ):
             return current
         if current.parent == current:
             raise RuntimeError("cannot locate repository root")
