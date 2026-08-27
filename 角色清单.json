@@ -1,0 +1,20 @@
+{
+  "schema_version": "onion_role_workspace_v1",
+  "role": "app",
+  "display_name": "洋葱 APP Agent",
+  "repository": "onion-app-agent",
+  "skills": [
+    "Skills/03_内容生成相关/onion-app-video-copy",
+    "Skills/03_内容生成相关/onion-app-image-copy",
+    "Skills/03_内容生成相关/onion-app-image",
+    "Skills/03_内容生成相关/onion-voiceover-video-mix",
+    "Skills/03_内容生成相关/onion-talking-head-video-mix"
+  ],
+  "resolved_skill_names": [
+    "onion-app-image",
+    "onion-app-image-copy",
+    "onion-app-video-copy",
+    "onion-talking-head-video-mix",
+    "onion-voiceover-video-mix"
+  ]
+}

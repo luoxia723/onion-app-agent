@@ -1,0 +1,4 @@
+interface:
+  display_name: "APP 图片生成"
+  short_description: "把确认的 APP 图片文案经配置卡直接生成投放图片"
+  default_prompt: "使用 $onion-app-image 先打开图片配置卡，再根据已确认图片文案直接生成 APP 图片候选，并按我的选择交付。暂不做已有图片迭代。"
